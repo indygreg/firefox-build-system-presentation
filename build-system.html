@@ -1108,51 +1108,6 @@ include $(topsrcdir)/config/rules.mk
         </table>
       </article>
 
-      <article class="smaller">
-        <h3>Resource Usage - 2011 MacBook Pro</h3>
-        <table>
-          <caption>2011 MacBook Pro, 8GB RAM, factory magnetic hard drive</caption>
-          <tr>
-            <th>Build</th>
-            <th>Wall Time</th>
-            <th>CPU %</th>
-            <th>Read Bytes</th>
-            <th>Write Bytes</th>
-            <th>I/O Wait Read</th>
-            <th>I/O Wait Write</th>
-          </tr>
-          <tr>
-            <td>-j4</td>
-            <td>26:33</td>
-            <td>46.48</td>
-            <td>738MB</td>
-            <td>3,674MB</td>
-            <td>223</td>
-            <td>2,023</td>
-          </tr>
-
-           <tr>
-            <td>-j12 #1</td>
-            <td>23:19</td>
-            <td>73.85</td>
-            <td>1000MB</td>
-            <td>3,710MB</td>
-            <td>270</td>
-            <td>1,998</td>
-          </tr>
-
-           <tr>
-            <td>-j12 #2</td>
-            <td>22:44</td>
-            <td>74.03</td>
-            <td>705MB</td>
-            <td>3,582MB</td>
-            <td>271</td>
-            <td>2,106</td>
-          </tr>
-        </table>
-      </article>
-
       <article class="smaller nobackground">
         <h3>Resource Usage - Try Servers</h3>
         <table>
@@ -1248,6 +1203,51 @@ include $(topsrcdir)/config/rules.mk
             <td>309</td>
           </tr>
         </table>
+        </article>
+
+      <article class="smaller">
+        <h3>Resource Usage - 2011 MacBook Pro</h3>
+        <table>
+          <caption>2011 MacBook Pro, 8GB RAM, factory magnetic hard drive</caption>
+          <tr>
+            <th>Build</th>
+            <th>Wall Time</th>
+            <th>CPU %</th>
+            <th>Read Bytes</th>
+            <th>Write Bytes</th>
+            <th>I/O Wait Read</th>
+            <th>I/O Wait Write</th>
+          </tr>
+          <tr>
+            <td>-j4</td>
+            <td>26:33</td>
+            <td>46.48</td>
+            <td>738MB</td>
+            <td>3,674MB</td>
+            <td>223</td>
+            <td>2,023</td>
+          </tr>
+
+           <tr>
+            <td>-j12 #1</td>
+            <td>23:19</td>
+            <td>73.85</td>
+            <td>1000MB</td>
+            <td>3,710MB</td>
+            <td>270</td>
+            <td>1,998</td>
+          </tr>
+
+           <tr>
+            <td>-j12 #2</td>
+            <td>22:44</td>
+            <td>74.03</td>
+            <td>705MB</td>
+            <td>3,582MB</td>
+            <td>271</td>
+            <td>2,106</td>
+          </tr>
+        </table>
       </article>
 
       <article class="nobackground">
@@ -1283,10 +1283,13 @@ include $(topsrcdir)/config/rules.mk
           <option value="try-osx-3.tsv">Try OS X #3</option>
           <option value="try-osx-4.tsv">Try OS X #4</option>
 
-          <option value="mbp-j12-hd-cached">MBP Paged Magnetic</option>
-          <option value="mbp-j4">MBP -j4</option>
-          <option value="try-linux-ec2-ccache-0">Linux64 ccache ec2 (1)</option>
-          <option value="try-linux-ec2-ccache-1">Linux64 ccache ec2 (2)</option>
+          <option value="mbp-j12-hd-cached">MBP -j12 Page Cache Populated</option>
+          <option value="mbp-j4">MBP -j4 Unknown</option>
+
+          <option value="try-linux-ec2-ccache-0">Try Linux ccache ec2 #1</option>
+          <option value="try-linux-ec2-ccache-1">Try Linux ccache ec2 #2</option>
+          <option value="try-osx-ccache-1">Try OS X ccache #1</option>
+          <option value="try-osx-ccache-2">Try OS X ccache #2</option>
         </select>
 
         <select id="graph_type" onchange="updateMeasurementGraph();">
