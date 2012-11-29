@@ -97,9 +97,9 @@ body {
 }
 
 .slides.template-default > article:not(.nobackground):not(.biglogo) {
-  /*background: url(images/google-logo-small.png) 710px 625px no-repeat; */
-  
-  background-color: white;  
+  background: url(images/firefox-logo-small.png) 650px 600px no-repeat;
+
+  background-color: white;
 } 
 
 .slides.layout-widescreen > article:not(.nobackground):not(.biglogo),

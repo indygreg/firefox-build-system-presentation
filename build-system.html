@@ -687,7 +687,7 @@ $(function() {
         </ul>
       </article>
 
-      <article>
+      <article class="nobackground">
         <h3>Coordinated by a Driver</h3>
         <div style="margin-top: 20px; width: 350px;">
           <p>Dawn of time - 2012: <code>client.mk</code></p>
@@ -726,7 +726,7 @@ $(function() {
         <img src="images/die-gnu-autotools.jpg" height="400" />
       </article>
 
-      <article>
+      <article class="nobackground">
         <h3>config.status: Computed Tree Config</h3>
         <iframe src="config.status" style="height: 500px;"></iframe>
       </article>
@@ -742,10 +742,8 @@ $(function() {
         </table>
       </article>
 
-      <article>
+      <article class="nobackground">
         <h3 style="margin-bottom: 20px">4. Invoke the Build Backend</h3>
-        <code>make</code>
-
         <iframe src="mach.log" style="height: 500px"></iframe>
       </article>
 
@@ -774,7 +772,7 @@ include $(topsrcdir)/config/rules.mk
         </pre>
       </article>
 
-      <article class="smaller">
+      <article class="smaller nobackground">
         <h3>The Header</h3>
         <pre>
 DEPTH = @DEPTH@
@@ -808,7 +806,7 @@ endif
         </ul>
       </article>
 
-      <article class="smaller">
+      <article class="smaller nobackground">
         <h3>The Footer</h3>
         <pre>
 include $(topsrcdir)/config/rules.mk
@@ -816,17 +814,17 @@ include $(topsrcdir)/config/rules.mk
         <iframe src="rules.mk" style="height: 400px;"></iframe>
       </article>
 
-      <article>
+      <article class="nobackground">
         <h3>Tier Traversal</h3>
         <div class="centered" id="tier_tree"></div>
       </article>
 
-      <article>
+      <article class="nobackground">
         <h3 onclick="toggleMakefileHierarchy();">Makefile Map (click me)</h3>
         <div class="centered" id="build_targets_graph"></div>
       </article>
 
-      <article>
+      <article class="nobackground">
         <h3>Makefile Tree Map</h3>
         <select id="makefile_tree_map_select" style="float: left;">
           <option value="none">None</option>
@@ -849,6 +847,11 @@ include $(topsrcdir)/config/rules.mk
           <li>If <tt>Makefile</tt> has <tt>N &lt; -j</tt> tasks, CPU starved</li>
           <li>Can't build dependencies not defined in current Makefile</li>
         </ul>
+      </article>
+
+      <article>
+        <h2>Benchmarks</h2>
+        <p style="font: 1000px sans-serif;">*</p>
       </article>
 
       <article class="smaller">
@@ -964,77 +967,92 @@ include $(topsrcdir)/config/rules.mk
             <td>4,413</td>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>-j9</td>
+            <td>21:44</td>
+            <td>121:46</td>
+            <td>3.04x</td>
+            <td>71.9</td>
+            <td>70.0%</td>
+            <td>355</td>
+            <td>4,859</td>
+            <td>306</td>
+            <td>4,090</td>
           </tr>
           <tr>
-            <td>-j12</td>
-            <td>21:34</td>
-            <td>71.44</td>
-            <td>3,601</td>
-            <td>4,965</td>
-            <td>398</td>
-            <td>6,316</td>
+            <td>-j10</td>
+            <td>21:25</td>
+            <td>120:39</td>
+            <td>3.09x</td>
+            <td>72.2</td>
+            <td>70.4%</td>
+            <td>366</td>
+            <td>4,832</td>
+            <td>377</td>
+            <td>3,781</td>
           </tr>
-          <tr>
-            <td>-j12 RAM disk</td>
-            <td>21:12</td>
-            <td>75.16</td>
-            <td>N/A</td>
-            <td>N/A</td>
-            <td>N/A</td>
-            <td>N/A</td>
-          </tr>
+
         </table>
       </article>
 
-
       <article class="smaller">
-        <h3>Resource Usage - Effects of ccache</h3>
+        <h3>Resource Usage - Effects of Caches on Clobber Builds</h3>
         <table>
-          <caption>Ubuntu 12.10 x64 on i7-2600K 8GB RAM, 7200 RPM HD</caption>
+          <caption>Ubuntu 12.10 x64 on i7-2600K 12GB RAM, 7200 RPM HD. All builds -j8.</caption>
           <tr>
-            <th>Build</th>
+            <th>Page Cache State</th>
+            <th>ccache State</th>
             <th>Wall Time</th>
-            <th>Average CPU %</th>
             <th>Read Bytes (MB)</th>
             <th>Write Bytes (MB)</th>
             <th>I/O Wait Read (s)</th>
             <th>I/O Wait Write (s)</th>
           </tr>
           <tr>
-            <td>-j12 clobber, ccache and page caches empty</td>
-            <td>25:17</td>
-            <td>69.17</td>
-            <td>973</td>
-            <td>8,062</td>
-            <td>913</td>
-            <td>8,305</td>
+            <td>Empty</th>
+            <td>Disabled</td>
+            <td>21:38</td>
+            <td>356</td>
+            <td>4,865</td>
+            <td>300</td>
+            <td>4,413</td>
           </tr>
           <tr>
-            <td>8GB 4+4T -j12 ccache populated, page empty</td>
-            <td>11:16</td>
-            <td>48.10</td>
-            <td>2,734MB</td>
-            <td>5,544MB</td>
-            <td>3,056</td>
-            <td>9,884</td>
+            <td>Populated from previous clobber</td>
+            <td>Disabled</td>
+            <td>20:45</td>
+            <td>0</td>
+            <td>4,842</td>
+            <td>0</td>
+            <td>4,200</td>
           </tr>
           <tr>
-            <td>8GB 4+4T -j12 ccache populated, page full</td>
-            <td>8:30</td>
-            <td>47.21</td>
-            <td>593MB</td>
-            <td>5,418MB</td>
-            <td>467</td>
-            <td>1,302</td>
+            <td>Empty</td>
+            <td>Enabled and Empty</td>
+            <td>23:59</td>
+            <td>361</td>
+            <td>7,982</td>
+            <td>425</td>
+            <td>8,097</td>
+          </tr>
+
+          <tr>
+            <td>Empty</td>
+            <td>Enabled and Populated</td>
+            <td>9:34</td>
+            <td>3,185</td>
+            <td>4,904</td>
+            <td>3,401</td>
+            <td>7,591</td>
+          </tr>
+
+          <tr>
+            <td>Populated from previous</td>
+            <td>Enabled and Populated</td>
+            <td>4:04</td>
+            <td>1</td>
+            <td>4,317</td>
+            <td>2</td>
+            <td>11,921</td>
           </tr>
         </table>
       </article>
@@ -1052,7 +1070,25 @@ include $(topsrcdir)/config/rules.mk
             <th>I/O Wait Write</th>
           </tr>
           <tr>
-            <td>2GB RAM  -j12</td>
+            <td>-j12 RAM disk</td>
+            <td>21:12</td>
+            <td></td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>GCC 4.7 -j8</td>
+            <td>24:11</td>
+            <td>72.2</td>
+            <td>353</td>
+            <td>5,242</td>
+            <td>359</td>
+            <td>3,904</td>
+          </tr>
+          <tr>
+            <td>2GB RAM -j12</td>
             <td>26:35</td>
             <td>59.82</td>
             <td>4,681MB</td>
@@ -1061,16 +1097,7 @@ include $(topsrcdir)/config/rules.mk
             <td>4,837</td>
           </tr>
           <tr>
-            <td>10GB -j12 Clobber after full build</td>
-            <td>20:38</td>
-            <td>73.97</td>
-            <td>0MB</td>
-            <td>4,973MB</td>
-            <td>1</td>
-            <td>6,015</td>
-          </tr>
-          <tr>
-            <td>8GB -j12 (Flush PC Every 30s)</td>
+            <td>-j12 (Flush Page Cache Every 30s)</td>
             <td>62:39</td>
             <td>51.71</td>
             <td>15,455MB</td>
@@ -1125,27 +1152,143 @@ include $(topsrcdir)/config/rules.mk
           </tr>
         </table>
       </article>
-      <article>
+
+      <article class="smaller nobackground">
+        <h3>Resource Usage - Try Servers</h3>
+        <table>
+          <caption>All builds performed using -j12 without ccache enabled</caption>
+          <tr>
+            <th>Type</th>
+            <th>Host</th>
+            <th>Wall Time</th>
+            <th>CPU %</th>
+            <th>Read MB</th>
+            <th>Write MB</th>
+            <th>Read Wait</th>
+            <th>Write Wait</th>
+          </tr>
+          <tr>
+            <td>Linux64 #1</td>
+            <td>bld-centos6-hp-032</td>
+            <td>19:32</td>
+            <td>82.5</td>
+            <td>50</td>
+            <td>4,351</td>
+            <td>12</td>
+            <td>6,641</td>
+          </tr>
+          <tr>
+            <td>Linux64 #2</td>
+            <td>bld-centos6-hp-029</td>
+            <td>19:36</td>
+            <td>82.5</td>
+            <td>45</td>
+            <td>4,452</td>
+            <td>17</td>
+            <td>8,722</td>
+          </tr>
+          <tr>
+            <td>Linux64 #3</td>
+            <td>try-linux64-ec2-316</td>
+            <td>26:17</td>
+            <td>61.3</td>
+            <td>111MB</td>
+            <td>4,421</td>
+            <td>43</td>
+            <td>10,830</td>
+          </tr>
+          <tr>
+            <td>Linux64 #4</td>
+            <td>try-linux64-ec2-607</td>
+            <td>26:26</td>
+            <td>61.2</td>
+            <td>47</td>
+            <td>4,423</td>
+            <td>34</td>
+            <td>16,902</td>
+          </tr>
+          <tr>
+            <td>OS X 64 #1</td>
+            <td>bld-lion-r5-036</td>
+            <td>21:42</td>
+            <td>75.9</td>
+            <td>374</td>
+            <td>3,669</td>
+            <td>91</td>
+            <td>265</td>
+          </tr>
+          <tr>
+            <td>OS X 64 #2</td>
+            <td>bld-lion-r5-026</td>
+            <td>21:55</td>
+            <td>75.8</td>
+            <td>366</td>
+            <td>3,385</td>
+            <td>99</td>
+            <td>321</td>
+          </tr>
+          <tr>
+            <td>OS X 64 #3</td>
+            <td>bld-lion-r5-022</td>
+            <td>21:30</td>
+            <td>74.8</td>
+            <td>368</td>
+            <td>3,373</td>
+            <td>129</td>
+            <td>339</td>
+          </tr>
+          <tr>
+            <td>OS X 64 #4</td>
+            <td>bld-lion-r5-020</td>
+            <td>21:34</td>
+            <td>75.5</td>
+            <td>378</td>
+            <td>3,380</td>
+            <td>109</td>
+            <td>309</td>
+          </tr>
+        </table>
+      </article>
+
+      <article class="nobackground">
         <h3>Pretty Graphs</h3>
 
         <select id="build-measurements" onchange="updateMeasurementGraph();">
-          <option value="linux-j4-x4-freshboot.tsv">Linux 4 Cores -j4 Cold</option>
-          <option value="linux-j9-x4-cached.tsv">Linux 4 Cores -j9 Warm</option>
-          <option value="linux-j12-x8-cold.tsv">Linux 4 Core + 4 HT -j12 Cold</option>
-          <option value="linux-j12-x8-cached.tsv">Linux 4 Core + 4 HT -j12 Warm</option>
-          <option value="linux-j12-x8-clearing-page-cache.tsv">Linux Periodic Page Cache Flushing</option>
-          <option value="linux-j12-x8-ccache-freshpc.tsv">Linux ccache Everything Empty</option>
-          <option value="linux-j12-x8-ccached-full-freshpc.tsv">Linux ccache Populated, Empty Page</option>
-          <option value="linux-j12-x8-ccache-full-paged.tsv">Linux ccache Everything Populated</option>
+          <option value="linux-j1.tsv">Linux -j1</option>
+          <option value="linux-j2.tsv">Linux -j2</option>
+          <option value="linux-j3.tsv">Linux -j3</option>
+          <option value="linux-j4.tsv">Linux -j4</option>
+          <option value="linux-j5.tsv">Linux -j5</option>
+          <option value="linux-j6.tsv">Linux -j6</option>
+          <option value="linux-j7.tsv">Linux -j7</option>
+          <option value="linux-j8.tsv">Linux -j8</option>
+          <option value="linux-j9.tsv">Linux -j9</option>
+          <option value="linux-j10.tsv">Linux -j10</option>
 
-          <option value="try-linux-centos-noccache">Linux64 no-ccache bld-centos6-hp-027</option>
-          <option value="try-linux-ec2-noccache">Linux64 no-ccache ec2</option>
-          <option value="try-osx-noccache">OS X no-ccache</option>
+          <option value="linux-j8-gcc.tsv">Linux -j8 GCC 4.7</option>
+          <option value="linux-j8-page-cache-populated.tsv">Linux -j8 Page Cache Populated</option>
+          <option value="linux-j8-ccache-empty-page-cache-empty.tsv">Linux -j8 ccache Empty, Page Cache Empty</option>
+          <option value="linux-j8-ccache-populated-page-cache-empty.tsv">Linux -j8 ccache Populated, Page Cache Empty</option>
+          <option value="linux-j8-ccache-populated-page-cache-full.tsv">Linux -j8 ccache Populated, Page Cache Populated</option>
+
+          <option value="linux-j12-x8-clearing-page-cache.tsv">Linux Periodic Page Cache Flushing</option>
+
+          <option value="try-linux-1.tsv">Try Linux #1</option>
+          <option value="try-linux-2.tsv">Try Linux #2</option>
+          <option value="try-linux-3.tsv">Try Linux #3 (EC2)</option>
+          <option value="try-linux-4.tsv">Try Linux #4 (EC2)</option>
+
+          <option value="try-osx-1.tsv">Try OS X #1</option>
+          <option value="try-osx-2.tsv">Try OS X #2</option>
+          <option value="try-osx-3.tsv">Try OS X #3</option>
+          <option value="try-osx-4.tsv">Try OS X #4</option>
+
           <option value="mbp-j12-hd-cached">MBP Paged Magnetic</option>
           <option value="mbp-j4">MBP -j4</option>
           <option value="try-linux-ec2-ccache-0">Linux64 ccache ec2 (1)</option>
           <option value="try-linux-ec2-ccache-1">Linux64 ccache ec2 (2)</option>
         </select>
+
         <select id="graph_type" onchange="updateMeasurementGraph();">
           <option value="cpu">CPU</option>
           <option value="read_bytes">Disk Read Bytes</option>
@@ -1160,34 +1303,45 @@ include $(topsrcdir)/config/rules.mk
         <h3>Build Observations</h3>
         <ul>
           <li>Builds use a lot of CPU!</li>
-          <li>Mostly CPU heavy except for linking and NSS</li>
+          <li>Mostly CPU heavy except for configure, linking, and NSS</li>
           <li>... but we don't scale with # of cores in use</li>
           <li>Page cache is important</li>
           <li>... need either lots of memory or fast I/O</li>
-          <li>Hyperthreading: meh</li>
           <li>ccache adds significant I/O</li>
-          <li>... can slow builds</li>
+          <li>GCC uses ~10% more CPU, per-process memory, and ~400MB objdir output/li>
+          <li>Hyperthreading: meh</li>
         </ul>
       </article>
 
       <article>
         <h3>Where Do the Resources Go?</h3>
         <ul>
-          <li>NN:MM CPU time (i7-2600K) to clobber</li>
-          <li>~400MB read I/O (presumably srcdir)</li>
+          <li>63:52 i7-2600K core time to clobber</li>
+          <li>~400MB read I/O (srcdir + toolchain)</li>
           <li>~5GB write I/O (objdir output)</li>
-          <li>~4.2GB in objdir (Linux)</li>
-          <li>~4.6GB in page cache (Linux)</li>
-          <li>30-150MB per Clang process</li>
+          <li>~4.2GB in objdir (Linux Clang), 4.4GB (Linux GCC)</li>
+          <li>~4.6GB in page cache (Linux Clang), 4.8GB (Linux GCC)</li>
+          <li>~3.4GB in page cache for ccache!</li>
+          <li>30-300MB per compiler process</li>
         </ul>
       </article>
 
       <article>
-        <h3>Why Do We Build Slow?</h3>
+        <h3>Why We Build Slow: Things in Your Control</h3>
         <ul>
-          <li>The tree takes a lot of resources to build!</li>
-          <li>Your CPU is old</li>
-          <li>Low memory and/or slow hard drive</li>
+          <li>Your mozconfig. Don't do debug builds unless you need them.</li>
+          <li>Your CPU is slow</li>
+          <li>Limited memory causes excessive disk I/O</li>
+          <li>Slow disk stalls work</li>
+          <li>GCC slower and larger memory consumer than Clang</li>
+          <li>ccache adds significant I/O load</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Why We Build Slow: Things (Likely) Not in Your Control</h3>
+        <ul>
+          <li>C++ takes a lot of CPU to compile. We have a ton of C++</li>
           <li>Build system not invoking enough commands in parallel</li>
           <li>Excessive rebuilding</li>
           <li>New process overhead on Windows</li>
@@ -1195,8 +1349,8 @@ include $(topsrcdir)/config/rules.mk
         </ul>
       </article>
 
-      <article>
-        <h3>Dependency Hell / Y U NO PCH?</h3>
+      <article class="nobackground">
+        <h3>Dependency Hell</h3>
         <iframe src="dep-counts.txt"></iframe>
       </article>
 
@@ -1507,19 +1661,29 @@ class MyBuildDataConsumer(BuildDataConsumer):
       </article>
 
       <article>
-        <h3>Python Versions</h3>
-        <ul class="build">
+        <h3>Python Versions Today</h3>
+        <ul>
           <li>Python is our tooling language</li>
           <li>Currently require Python 2.6 to <i>build</i> the tree</li>
           <li>Some test suites may still run on 2.5 (Talos is even 2.4!)</li>
           <li>Version chaos makes authoring difficult, prevents progress</li>
-          <li>Short-term: Python 2.7 everywhere (soon)</li>
-          <li>Medium-term: Python 2.7/3.x dual compatibility (when we get around to it)</li>
-          <li>Long-term: Drop 2.7, require Python 3 (likely a few years)</li>
+          <li>... difficult to write Python 3 compatible code</li>
+          <li>... lack of handy language features like context managers, <tt>multiprocessing</tt></li>
+          <li>... numerous bugs in older Python</li>
         </ul>
       </article>
 
       <article>
+        <h3>Python Versions Tomorrow</h3>
+        <ul>
+          <li>Days to weeks: Python 2.7 to build, preferably 2.7.3</li>
+          <li>Weeks to months: Python 2.7 for ALL OF THE THINGS</li>
+          <li>Many months: Python 2.7/3.x dual compatibility (no rush)</li>
+          <li>A few years: Require Python 3</li>
+        </ul>
+      </article>
+
+      <article class="nobackground">
         <h3>mozboot</h3>
         <ul>
           <li><i>Bootstrap</i> your machine to build the tree</li>
@@ -1540,7 +1704,7 @@ class MyBuildDataConsumer(BuildDataConsumer):
           <li>Think of it as <code>client.mk</code> and common make targets implemented in Python</li>
           <li>Goal: better user experience</li>
           <li>Goal: enable better, faster, stronger (but not harder) tools and automation</li>
-          <li>Current state: immature, but improving all the time</li>
+          <li>Current state: young, but improving all the time</li>
         </ul>
       </article>
 
@@ -1553,7 +1717,7 @@ class MyBuildDataConsumer(BuildDataConsumer):
         </ul>
       </article>
 
-      <article class="smaller">
+      <article class="smaller nobackground">
         <h3>Usability Comparison: Run Single xpcshell Test</h3>
         <table>
           <tr>
@@ -1626,8 +1790,9 @@ class MyBuildDataConsumer(BuildDataConsumer):
       <article>
         <h3>mach Opens Doors</h3>
         <ul class="build">
-          <li>Unified logging bus</li>
+          <li>Much more flexible than make</li>
           <li>Deep integration with test runners</li>
+          <li>Unified logging bus</li>
           <li>Forcing tools to be written as libraries, not standalone scripts</li>
           <li>Conveniently brokers all interaction and can make intelligent decisions</li>
         </ul>
@@ -1640,9 +1805,33 @@ class MyBuildDataConsumer(BuildDataConsumer):
           <li>Easily submit [proper] patches to Bugzilla</li>
           <li>Find reviewers for patch</li>
           <li>Incorporate all those great tools that are floating around</li>
+          <li>Organize mach commands into categories</li>
+          <li>Shell completion support</li>
           <li>Record and report metrics from building</li>
           <li>... add stuff to <code>moz.build</code> files, consume with mach</li>
         </ul>
+      </article>
+
+      <article>
+        <h3>Adding a mach Command</h3>
+        <pre>
+from __future__ import print_function, unicode_literals
+
+from mach.decorators import (
+    CommandArgument,
+    CommandProvider,
+    Command,
+)
+
+@CommandProvider
+class MyCommandClass(object):
+    @Command('doit', help='Run it!')
+    @CommandArgument('--debug', '-d', action='store_true',
+        help='Do it in debug mode.')
+    def doit(self, debug=False):
+        print('I did it!')
+</pre>
+      <p>See <a href="https://developer.mozilla.org/en-US/docs/Developer_Guide/mach">MDN</a> for more.</p>
       </article>
 
       <article>
@@ -1651,8 +1840,10 @@ class MyBuildDataConsumer(BuildDataConsumer):
           <li>Custom Python importer so tree isn't littered with <tt>.pyc</tt> files</li>
           <li>Replace <tt>mozconfigs</tt> with <tt>moz.build</tt>-like files?</li>
           <li>mach config file?</li>
-          <li>metlog integration (streaming logs from TBPL)</li>
-          <li>Parallel test runners / unify test harness code</li>
+          <li>Streaming logs from TBPL (possibly with <a href="https://wiki.mozilla.org/Services/Sagrada/Metlog">metlog</a></li>
+          <li>Structured logging from mach eliminates log parsing</li>
+          <li>Parallel test runners and/or unify test harness code</li>
+          <li>Rewrite parts of configure in Python and/or parallelize</li>
           <li>Invent MFBT acronym for <tt>moz.build</tt> files</li>
         </ul>
       </article>
@@ -1702,28 +1893,6 @@ mach run
       </article>
 
       <article>
-        <h3>Adding a mach Command</h3>
-        <pre>
-from __future__ import print_function, unicode_literals
-
-from mach.decorators import (
-    CommandArgument,
-    CommandProvider,
-    Command,
-)
-
-@CommandProvider
-class MyCommandClass(object):
-    @Command('doit', help='Run it!')
-    @CommandArgument('--debug', '-d', action='store_true',
-        help='Do it in debug mode.')
-    def doit(self, debug=False):
-        print('I did it!')
-</pre>
-      <p>See <a href="https://developer.mozilla.org/en-US/docs/Developer_Guide/mach">MDN</a> for more.</p>
-      </article>
-
-      <article>
         <h3>How Can I Help?</h3>
         <ul class="build">
           <li>Learn Python</li>
@@ -1737,101 +1906,6 @@ class MyCommandClass(object):
 
 
 
-
-
-
-
-
-
-
-      <article>
-        <h3>
-          Styles
-        </h3>
-        <ul>
-          <li>
-            <span class='red'>class="red"</span>
-          <li>
-            <span class='blue'>class="blue"</span>
-          <li>
-            <span class='green'>class="green"</span>
-          <li>
-            <span class='yellow'>class="yellow"</span>
-          <li>
-            <span class='black'>class="black"</span>
-          <li>
-            <span class='white'>class="white"</span>
-          <li>
-            <b>bold</b> and <i>italic</i>
-        </ul>
-      </article>
-      
-      <article>
-        <h2>
-          Segue slide
-        </h2>
-      </article>
-
-      <article>
-        <h3>
-          Slide with an image
-        </h3>
-        <p>
-          <img style='height: 500px' src='images/example-graph.png'>
-        </p>
-        <div class='source'>
-          Source: Sergey Brin
-        </div>
-      </article>
-
-      <article>
-        <h3>
-          Slide with an image (centered)
-        </h3>
-        <p>
-          <img class='centered' style='height: 500px' src='images/example-graph.png'>
-        </p>
-        <div class='source'>
-          Source: Larry Page
-        </div>
-      </article>
-
-      <article class='fill'>
-        <h3>
-          Image filling the slide (with optional header)
-        </h3>
-        <p>
-          <img src='images/example-cat.jpg'>
-        </p>
-        <div class='source white'>
-          Source: Eric Schmidt
-        </div>
-      </article>
-
-      <article>
-        <h3>
-          This slide has some code
-        </h3>
-        <section>
-        <pre>
-&lt;script type='text/javascript'&gt;
-  // Say hello world until the user starts questioning
-  // the meaningfulness of their existence.
-  function helloWorld(world) {
-    for (let i = 42; --i &gt;= 0;) {
-      alert('Hello ' + String(world));
-    }
-  }
-&lt;/script&gt;
-&lt;style&gt;
-  p { color: pink }
-  b { color: blue }
-  u { color: 'umber' }
-&lt;/style&gt;
-</pre>
-        </section>
-      </article>
-      
       <article class='nobackground'>
         <h3>
           A slide with an embed + title
@@ -1851,17 +1925,6 @@ class MyCommandClass(object):
         <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
       </article>
       
-      <article>
-        <h3>
-          Thank you!
-        </h3>
-        
-        <ul>
-          <li>
-            <a href='http://www.google.com'>google.com</a>
-        </ul>
-      </article>
-
     </section>
 
   </body>
